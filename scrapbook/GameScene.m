@@ -10,6 +10,10 @@
 
 @implementation GameScene
 
+@synthesize
+player,
+touchLocation;
+
 +(CCScene *) scene
 {
 	// 'scene' is an autorelease object.
@@ -32,12 +36,14 @@
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-        CCSprite *player = [CCSprite spriteWithFile:@"plane_normal.png"
-                                               rect:CGRectMake(0, 0, 48, 28.5)];
-        player.scale = 2.0;
-        player.position = ccp(player.boundingBox.size.width/2, winSize.height/2);
-        [self addChild:player];
+        self.player = [CCSprite spriteWithFile:@"plane_normal.png"
+                                          rect:CGRectMake(0, 0, 47.5, 28.5)];
+        self.player.scale = 2.0;
+        self.player.position = ccp(player.boundingBox.size.width/2, winSize.height/2);
+        [self addChild:self.player];
         [self schedule:@selector(gameLogic:) interval:1.0];
+        
+        self.isTouchEnabled = YES;
         
         //        float angle = 45;
         //        float speed = 50/60; // Move 50 pixels in 60 frames (1 second)
@@ -50,8 +56,51 @@
 	return self;
 }
 
+
+#pragma mark - Scheduled functions
+
+- (void)gameLogic:(ccTime)interval{
+    [self addTarget];
+}
+
+- (void)bulletToLocation:(ccTime)interval{
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    CCSprite *projectile = [CCSprite spriteWithFile:@"missile_final.png"
+                                               rect:CGRectMake(0, 0, 16, 2.5)];
+    projectile.scale = 2.0;
+    projectile.position = ccp(self.player.boundingBox.size.width - projectile.boundingBox.size.width/2, self.player.position.y);
+    
+    int offX = self.touchLocation.x - projectile.position.x;
+    int offY = self.touchLocation.y - projectile.position.y;
+    //no backward shot
+    if (offX <= 0) return;
+    
+    CGFloat angle = ccpAngleSigned(ccp(1.0, 0.0), ccpSub(self.touchLocation, projectile.position));
+    projectile.rotation = -angle*180/M_PI;
+    
+    [self addChild:projectile];
+    
+    int realX = winSize.width + (projectile.boundingBox.size.width/2);
+    float ratio = (float) offY / (float) offX;
+    int realY = (realX * ratio) + projectile.position.y;
+    CGPoint realDest = ccp(realX, realY);
+    
+    int offRealX = realX - projectile.position.x;
+    int offRealY = realY - projectile.position.y;
+    float length = sqrtf((offRealX*offRealX)+(offRealY*offRealY));
+    float velocity = 480; // px/sec
+    float realMoveDuration = length/velocity;
+    
+    [projectile runAction:[CCSequence actions:
+                           [CCMoveTo actionWithDuration:realMoveDuration position:realDest],
+                           [CCCallFuncN actionWithTarget:self selector:@selector(spriteMoveFinished:)],
+                           nil]];
+}
+
+#pragma mark - CallBack functions
+
 - (void)addTarget{
-    CCSprite *target = [CCSprite spriteWithFile:@"enemy_1_normal.png" rect:CGRectMake(0, 0, 35.5, 26.5)];
+    CCSprite *target = [CCSprite spriteWithFile:@"enemy_1_normal.png" rect:CGRectMake(0, 0, 32, 23•.5)];
     
     int minDuration = 2.0;
     int durationRange = 2.0;
@@ -77,9 +126,28 @@
     [self removeChild:sprite cleanup:YES];
 }
 
-- (void)gameLogic:(ccTime)interval{
-    [self addTarget];
+
+#pragma mark - Touch handlers
+
+- (void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:touch.view];
+    self.touchLocation = [[CCDirector sharedDirector] convertToGL:location];
+    [self bulletToLocation:0.0];
+    [self schedule:@selector(bulletToLocation:) interval:0.1];
+
 }
+
+- (void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:touch.view];
+    self.touchLocation = [[CCDirector sharedDirector] convertToGL:location];
+}
+
+- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self unschedule:@selector(bulletToLocation:)];
+}
+
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
