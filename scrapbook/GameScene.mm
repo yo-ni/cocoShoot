@@ -51,7 +51,8 @@ touchLocation;
         //        float vy = sin(angle * M_PI / 180) * speed;
         //        CGPoint direction = ccp(vx,vy);
         //        player.position = ccpAdd(player.position, direction);
-        
+        _enemies = [[NSMutableArray alloc] init];
+        _bullets = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -67,6 +68,9 @@ touchLocation;
     CGSize winSize = [[CCDirector sharedDirector] winSize];
     CCSprite *projectile = [CCSprite spriteWithFile:@"missile_final.png"
                                                rect:CGRectMake(0, 0, 16, 2.5)];
+    projectile.tag = 2;
+    [_bullets addObject:projectile];
+    
     projectile.scale = 2.0;
     projectile.position = ccp(self.player.boundingBox.size.width - projectile.boundingBox.size.width/2, self.player.position.y);
     
@@ -100,7 +104,9 @@ touchLocation;
 #pragma mark - CallBack functions
 
 - (void)addTarget{
-    CCSprite *target = [CCSprite spriteWithFile:@"enemy_1_normal.png" rect:CGRectMake(0, 0, 32, 23•.5)];
+    CCSprite *target = [CCSprite spriteWithFile:@"enemy_1_normal.png" rect:CGRectMake(0, 0, 32, 23.5)];
+    target.tag = 1;
+    [_enemies addObject:target];
     
     int minDuration = 2.0;
     int durationRange = 2.0;
@@ -123,6 +129,13 @@ touchLocation;
 
 - (void)spriteMoveFinished:(id)sender{
     CCSprite *sprite = (CCSprite *)sender;
+    
+    if (sprite.tag == 1) {
+        [_enemies removeObject:sprite];
+    }
+    else if(sprite.tag == 2){
+        [_bullets removeObject:sprite];
+    }
     [self removeChild:sprite cleanup:YES];
 }
 
@@ -157,6 +170,10 @@ touchLocation;
 	// cocos2d will automatically release all the children (Label)
 	
 	// don't forget to call "super dealloc"
+    [_enemies release];
+    _enemies = nil;
+    [_bullets release];
+    _bullets = nil;
 	[super dealloc];
 }
 

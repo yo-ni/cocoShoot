@@ -2,13 +2,15 @@
 //  IntroLayer.m
 //  scrapbook
 //
-//  Created by yoni on 05/08/12.
+//  Created by yoni on 01/09/12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
 //
 
 
 // Import the interfaces
 #import "IntroLayer.h"
+#import "HelloWorldLayer.h"
+#import "MainMenuScene.h"
 
 
 #pragma mark - IntroLayer

@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  scrapbook
 //
-//  Created by yoni on 05/08/12.
+//  Created by yoni on 01/09/12.
 //  Copyright __MyCompanyName__ 2012. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 {
 	UIWindow *window_;
 	UINavigationController *navController_;
-
+	
 	CCDirectorIOS	*director_;							// weak ref
 }
 

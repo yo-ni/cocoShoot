@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E9C1C8B615CEBC79003E7E17"
+               BlueprintIdentifier = "E95493B715F255DB00D1A9EC"
                BuildableName = "scrapbook.app"
                BlueprintName = "scrapbook"
                ReferencedContainer = "container:scrapbook.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E9C1C8B615CEBC79003E7E17"
+            BlueprintIdentifier = "E95493B715F255DB00D1A9EC"
             BuildableName = "scrapbook.app"
             BlueprintName = "scrapbook"
             ReferencedContainer = "container:scrapbook.xcodeproj">
@@ -51,7 +51,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E9C1C8B615CEBC79003E7E17"
+            BlueprintIdentifier = "E95493B715F255DB00D1A9EC"
             BuildableName = "scrapbook.app"
             BlueprintName = "scrapbook"
             ReferencedContainer = "container:scrapbook.xcodeproj">
@@ -69,7 +69,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E9C1C8B615CEBC79003E7E17"
+            BlueprintIdentifier = "E95493B715F255DB00D1A9EC"
             BuildableName = "scrapbook.app"
             BlueprintName = "scrapbook"
             ReferencedContainer = "container:scrapbook.xcodeproj">

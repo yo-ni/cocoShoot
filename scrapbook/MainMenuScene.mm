@@ -10,7 +10,7 @@
 
 @implementation MainMenuScene
 
-+(id) scene
++(CCScene *) scene
 {
     CCScene *scene = [CCScene node];
     

@@ -17,6 +17,6 @@
     
 }
 
-+ (id)scene;
++ (CCScene *)scene;
 
 @end

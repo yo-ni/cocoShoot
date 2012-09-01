@@ -9,7 +9,10 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 
-@interface GameScene : CCLayerColor
+@interface GameScene : CCLayerColor{
+    NSMutableArray *_enemies;
+    NSMutableArray *_bullets;
+}
 
 @property (nonatomic, retain) CCSprite *player;
 @property (nonatomic, assign) CGPoint touchLocation;
