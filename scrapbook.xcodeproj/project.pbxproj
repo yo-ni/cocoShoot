@@ -186,6 +186,7 @@
 		E95495FD15F2579300D1A9EC /* plane_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = E95495FA15F2579300D1A9EC /* plane_normal.png */; };
 		E95495FF15F25BBA00D1A9EC /* MainMenuScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495F615F2577B00D1A9EC /* MainMenuScene.mm */; };
 		E954960015F25BC000D1A9EC /* GameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495F415F2577B00D1A9EC /* GameScene.mm */; };
+		E977E82E15FBBE1100C9DE7E /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = E977E82D15FBBE1100C9DE7E /* MyContactListener.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -557,6 +558,8 @@
 		E95495F815F2579300D1A9EC /* enemy_1_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1_normal.png; sourceTree = "<group>"; };
 		E95495F915F2579300D1A9EC /* missile_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missile_final.png; sourceTree = "<group>"; };
 		E95495FA15F2579300D1A9EC /* plane_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plane_normal.png; sourceTree = "<group>"; };
+		E977E82C15FBBE1100C9DE7E /* MyContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyContactListener.h; sourceTree = "<group>"; };
+		E977E82D15FBBE1100C9DE7E /* MyContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyContactListener.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -584,6 +587,7 @@
 			children = (
 				E95493CE15F255DB00D1A9EC /* scrapbook */,
 				E95493BB15F255DB00D1A9EC /* Frameworks */,
+				E954960115F25C0100D1A9EC /* default project files */,
 				E95493B915F255DB00D1A9EC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -615,11 +619,13 @@
 		E95493CE15F255DB00D1A9EC /* scrapbook */ = {
 			isa = PBXGroup;
 			children = (
-				E954960115F25C0100D1A9EC /* default project files */,
-				E95495F315F2577B00D1A9EC /* GameScene.h */,
-				E95495F415F2577B00D1A9EC /* GameScene.mm */,
+				E977E83015FD17C200C9DE7E /* Debug */,
+				E977E82C15FBBE1100C9DE7E /* MyContactListener.h */,
+				E977E82D15FBBE1100C9DE7E /* MyContactListener.mm */,
 				E95495F515F2577B00D1A9EC /* MainMenuScene.h */,
 				E95495F615F2577B00D1A9EC /* MainMenuScene.mm */,
+				E95495F315F2577B00D1A9EC /* GameScene.h */,
+				E95495F415F2577B00D1A9EC /* GameScene.mm */,
 				E95493CF15F255DB00D1A9EC /* Resources */,
 				E95493E915F255DB00D1A9EC /* libs */,
 				E95495D515F255DE00D1A9EC /* Supporting Files */,
@@ -1175,6 +1181,14 @@
 				E95495E615F255DE00D1A9EC /* PhysicsSprite.mm */,
 			);
 			name = "default project files";
+			path = scrapbook;
+			sourceTree = "<group>";
+		};
+		E977E83015FD17C200C9DE7E /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Debug;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1407,6 +1421,7 @@
 				E95495E115F255DE00D1A9EC /* IntroLayer.mm in Sources */,
 				E95495E415F255DE00D1A9EC /* GLES-Render.mm in Sources */,
 				E95495E715F255DE00D1A9EC /* PhysicsSprite.mm in Sources */,
+				E977E82E15FBBE1100C9DE7E /* MyContactListener.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1514,6 +1529,7 @@
 				E95495EE15F255DE00D1A9EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
