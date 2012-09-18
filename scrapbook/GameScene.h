@@ -20,8 +20,9 @@
 @interface GameScene : CCLayerColor{
     b2World *_world;
     b2Body *_borderBody;
+    b2Body *_borderScreenBody;
     b2Body *_playerBody;
-    b2Fixture *_playerFixture;
+    CCSprite *_playerSprite;
     MyContactListener *_contactListener;
     GLESDebugDraw *_debugDraw;
 
@@ -33,7 +34,6 @@
 
 - (void)addEnnemy;
 - (void)bulletToLocation:(ccTime)interval;
-- (void)spriteMoveFinished:(id)sender;
 - (void)gameLogic:(ccTime)interval;
 
 @end
