@@ -95,28 +95,8 @@ touchLocation;
         playerBodyDef.userData = _playerSprite;
         playerBodyDef.position = b2Vec2(_playerSprite.position.x/PTM_RATIO, _playerSprite.position.y/PTM_RATIO);
         _playerBody = _world->CreateBody(&playerBodyDef);
-        
-        b2PolygonShape playerShape;
-        
-        int vectCount = 7;
-        b2Vec2 verts[] = {
-            b2Vec2(47.0f / PTM_RATIO, 0.5f / PTM_RATIO),
-            b2Vec2(-18.4f / PTM_RATIO, 28.5f / PTM_RATIO),
-            b2Vec2(-30.9f / PTM_RATIO, 28.5f / PTM_RATIO),
-            b2Vec2(-46.4f / PTM_RATIO, 16.0f / PTM_RATIO),
-            b2Vec2(-46.2f / PTM_RATIO, -14.0f / PTM_RATIO),
-            b2Vec2(-30.9f / PTM_RATIO, -28.5f / PTM_RATIO),
-            b2Vec2(-16.4f / PTM_RATIO, -28.5f / PTM_RATIO)
-        };
-        
-        playerShape.Set(verts, vectCount);
-        
-        b2FixtureDef playerFixtureDef;
-        playerFixtureDef.shape = &playerShape;
-        playerFixtureDef.filter.groupIndex = -2;
-        
-        _playerBody->CreateFixture(&playerFixtureDef);
-        
+        _playerFixture = NULL;
+        [self setPlayerScale:_playerSprite.scale];
         
         // Game logic
         self.isTouchEnabled = YES;
@@ -125,6 +105,7 @@ touchLocation;
         [self schedule:@selector(tick:)];
         
         //for debuging
+//        
 //        _debugDraw = new GLESDebugDraw( PTM_RATIO );
 //        _world->SetDebugDraw(_debugDraw);
 //        
@@ -153,6 +134,9 @@ touchLocation;
         }
     }
     
+    //if player is hit
+    bool playerHit = NO;
+    
     
     // checking all contact listed by Contact listener
     std::vector<b2Body *>toDestroy;
@@ -178,10 +162,10 @@ touchLocation;
         }
         else{
             
-            
             if (bodyA->GetUserData() != NULL && bodyB->GetUserData() != NULL) {
                 CCSprite *spriteA = (CCSprite *) bodyA->GetUserData();
                 CCSprite *spriteB = (CCSprite *) bodyB->GetUserData();
+                
                 
                 // bullet and ennemy
                 if ( (spriteA.tag == 2 && spriteB.tag == 3) || (spriteA.tag == 3 && spriteB.tag == 2) ) {
@@ -194,11 +178,13 @@ touchLocation;
                         toDestroy.push_back(bodyA);
                     }
                 }
+                
                 // SpriteA = player and spriteB = ennemy
                 else if ( spriteA.tag == 1 && spriteB.tag == 3 ) {
                     if (std::find(toDestroy.begin(), toDestroy.end(), bodyB)
                         == toDestroy.end()) {
                         toDestroy.push_back(bodyB);
+                        playerHit  =YES;
                     }
                 }
                 // SpriteA = ennemy and spriteB = player
@@ -206,11 +192,25 @@ touchLocation;
                     if (std::find(toDestroy.begin(), toDestroy.end(), bodyA)
                         == toDestroy.end()) {
                         toDestroy.push_back(bodyA);
+                        playerHit = YES;
                     }
                 }
             }
         }
     }
+    
+    if(playerHit){
+        if (_playerSprite.scale > 0.5) {
+            [self setPlayerScale:_playerSprite.scale-0.5];
+        }
+        else {
+            if (std::find(toDestroy.begin(), toDestroy.end(), _playerBody)
+                == toDestroy.end()) {
+                toDestroy.push_back(_playerBody);
+            }
+        }
+    }
+
     
     //delete actually all bodies touching the edges
     std::vector<b2Body *>::iterator pos2;
@@ -223,13 +223,49 @@ touchLocation;
         _world->DestroyBody(body);
     }
     
+    
 }
 
 
 #pragma mark - CallBack functions
 
 
-- (void)createPlayerFixtureWithScale:(CGFloat)scale{
+- (void)setPlayerScale:(CGFloat)scale{
+    _playerSprite.scale = scale;
+    //    b2PolygonShape shape;
+    //    shape.SetAsBox(2, 2);
+    //    b2FixtureDef def;
+    //    def.shape = &shape;
+    //    _playerBody->CreateFixture(&def);
+    //    _playerBody->CreateFixture(&def);
+    //    _playerBody->CreateFixture(&def);
+    //    b2Fixture *list = _playerBody->GetFixtureList();
+    if(NULL != _playerFixture){
+        _playerBody->DestroyFixture(_playerFixture);
+    }
+    b2PolygonShape playerShape;
+    
+    CGFloat shapeRatio = 2*PTM_RATIO/scale;
+    
+    int vectCount = 7;
+    b2Vec2 verts[] = {
+        b2Vec2(47.0f / shapeRatio, 0.5f / shapeRatio),
+        b2Vec2(-18.4f / shapeRatio, 28.5f / shapeRatio),
+        b2Vec2(-30.9f / shapeRatio, 28.5f / shapeRatio),
+        b2Vec2(-46.4f / shapeRatio, 16.0f / shapeRatio),
+        b2Vec2(-46.2f / shapeRatio, -14.0f / shapeRatio),
+        b2Vec2(-30.9f / shapeRatio, -28.5f / shapeRatio),
+        b2Vec2(-16.4f / shapeRatio, -28.5f / shapeRatio)
+    };
+    
+    playerShape.Set(verts, vectCount);
+    
+    b2FixtureDef playerFixtureDef;
+    playerFixtureDef.shape = &playerShape;
+    playerFixtureDef.filter.groupIndex = -2;
+    
+    _playerFixture = _playerBody->CreateFixture(&playerFixtureDef);
+    
 }
 
 - (void)bulletToLocation:(ccTime)interval{
@@ -360,7 +396,7 @@ touchLocation;
 #pragma mark - Accelerometer handler
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration{
-    NSLog(@"%f  %f", acceleration.y, -acceleration.x);
+    //    NSLog(@"%f  %f", acceleration.y, -acceleration.x);
     b2Vec2 force = b2Vec2(150*acceleration.y, -150*(acceleration.x-0.5));
     _playerBody->ApplyForceToCenter(force);
 }
@@ -376,6 +412,8 @@ touchLocation;
     _borderBody = NULL;
     _borderScreenBody = NULL;
     _playerBody = NULL;
+    _playerFixture = NULL;
+    _playerSprite = NULL;
 	[super dealloc];
 }
 
@@ -385,18 +423,18 @@ touchLocation;
 //-(void) draw
 //{
 //    ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position | kCCVertexAttribFlag_Color );
-//
+//    
 //	glDisable(GL_TEXTURE_2D);
-////	glDisableClientState(GL_COLOR_ARRAY);
-////	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//
+//    //	glDisableClientState(GL_COLOR_ARRAY);
+//    //	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//    
 //	_world->DrawDebugData();
-//
+//    
 //	glEnable(GL_TEXTURE_2D);
-////	glEnableClientState(GL_COLOR_ARRAY);
-////	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//    //	glEnableClientState(GL_COLOR_ARRAY);
+//    //	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 //}
-//
+
 
 
 @end
