@@ -98,6 +98,20 @@ touchLocation;
         _playerFixture = NULL;
         [self setPlayerScale:_playerSprite.scale];
         
+        //background
+        _bg1 = [CCSprite spriteWithFile:@"bg.png"];
+        [_bg1 setPosition:ccp(winSize.width / 2, winSize.height/2)];
+        [_bg1.textureAtlas.texture setAntiAliasTexParameters];
+        [self addChild:_bg1 z:1];
+        _gameVelocity = 1.0;
+        
+        _bg2 = [CCSprite spriteWithFile:@"bg.png"];
+        [_bg2 setPosition:ccp(winSize.width + winSize.width/2, winSize.height/2)];
+        [_bg2.textureAtlas.texture setAntiAliasTexParameters];
+        [self addChild:_bg2 z:2];
+        
+
+        
         // Game logic
         self.isTouchEnabled = YES;
         self.isAccelerometerEnabled = YES;
@@ -123,6 +137,7 @@ touchLocation;
 - (void)gameLogic:(ccTime)interval{
     [self addEnnemy];
 }
+
 - (void)tick:(ccTime) dt {
     _world->Step(dt, 10, 10);
     for(b2Body *b = _world->GetBodyList(); b; b=b->GetNext()) {
@@ -134,9 +149,26 @@ touchLocation;
         }
     }
     
+    
+    // scroll our background
+    CGSize winSize = [[CCDirector sharedDirector] winSize];
+    _bg1.position = ccp( _bg1.position.x - _gameVelocity, _bg1.position.y);
+    _bg2.position = ccp( _bg2.position.x - _gameVelocity, _bg1.position.y);
+    
+    //reset it's position if needed
+    if (_bg1.position.x < -winSize.width/2)
+    {
+        [_bg1 setPosition:ccp(_bg2.position.x + winSize.width, _bg1.position.y)];
+    }
+    if (_bg2.position.x < -winSize.width/2)
+    {
+        [_bg2 setPosition:ccp(_bg1.position.x + winSize.width, _bg2.position.y)];
+    }
+    
+
+    
     //if player is hit
     bool playerHit = NO;
-    
     
     // checking all contact listed by Contact listener
     std::vector<b2Body *>toDestroy;
@@ -207,6 +239,11 @@ touchLocation;
             if (std::find(toDestroy.begin(), toDestroy.end(), _playerBody)
                 == toDestroy.end()) {
                 toDestroy.push_back(_playerBody);
+                [self runAction:[CCSequence actions:
+                                 [CCDelayTime actionWithDuration:1],
+                                 [CCCallFunc actionWithTarget:self selector:@selector(displayGameOver)],
+                                 nil]];
+
             }
         }
     }
@@ -307,7 +344,6 @@ touchLocation;
     CGFloat forceCoeff = 10.0f;
     b2Vec2 force = b2Vec2(forceCoeff*direction.x, forceCoeff*direction.y);
     bulletBody->ApplyLinearImpulse(force, bulletBodyDef.position);
-    
 }
 
 
@@ -329,7 +365,7 @@ touchLocation;
     CGFloat actualY = (arc4random()%rangeY)+minY;
     
     ennemySprite.position = ccp(winSize.width + ennemySprite.boundingBox.size.width/2, actualY);
-    [self addChild:ennemySprite];
+    [self addChild:ennemySprite z:100];
     
     b2BodyDef ennemyBodyDef;
     ennemyBodyDef.type = b2_dynamicBody;
@@ -366,8 +402,15 @@ touchLocation;
     
     ennemyBody->CreateFixture(&ennemyFixtureDef);
     
-    b2Vec2 force = b2Vec2(-20/actualScale, 0);
+    b2Vec2 force = b2Vec2(-20/actualScale*_gameVelocity, 0);
     ennemyBody->ApplyLinearImpulse(force, ennemyBodyDef.position);
+}
+
+
+- (void)displayGameOver {
+    GameOverScene *gameOverScene = [GameOverScene node];
+    [gameOverScene.layer.label setString:@"You Lose :("];
+    [[CCDirector sharedDirector] replaceScene:gameOverScene];	
 }
 
 

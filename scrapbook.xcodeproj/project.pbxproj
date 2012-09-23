@@ -176,7 +176,6 @@
 		E95495D215F255DE00D1A9EC /* b2Rope.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E95495D115F255DE00D1A9EC /* b2Rope.cpp */; };
 		E95495D815F255DE00D1A9EC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E95495D715F255DE00D1A9EC /* main.m */; };
 		E95495DB15F255DE00D1A9EC /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495DA15F255DE00D1A9EC /* AppDelegate.mm */; };
-		E95495DE15F255DE00D1A9EC /* HelloWorldLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495DD15F255DE00D1A9EC /* HelloWorldLayer.mm */; };
 		E95495E115F255DE00D1A9EC /* IntroLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495E015F255DE00D1A9EC /* IntroLayer.mm */; };
 		E95495E415F255DE00D1A9EC /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495E315F255DE00D1A9EC /* GLES-Render.mm */; };
 		E95495E715F255DE00D1A9EC /* PhysicsSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495E615F255DE00D1A9EC /* PhysicsSprite.mm */; };
@@ -187,6 +186,9 @@
 		E95495FF15F25BBA00D1A9EC /* MainMenuScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495F615F2577B00D1A9EC /* MainMenuScene.mm */; };
 		E954960015F25BC000D1A9EC /* GameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = E95495F415F2577B00D1A9EC /* GameScene.mm */; };
 		E973F5EE160E23C900B6B991 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E973F5ED160E23C900B6B991 /* Default-568h@2x.png */; };
+		E973F5F2160EF16700B6B991 /* GameOverScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = E973F5F1160EF16700B6B991 /* GameOverScene.mm */; };
+		E973F79B160F8E4200B6B991 /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = E973F79A160F8E4200B6B991 /* explosion.png */; };
+		E973F79D160FA3E000B6B991 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = E973F79C160FA3E000B6B991 /* bg.png */; };
 		E977E82E15FBBE1100C9DE7E /* MyContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = E977E82D15FBBE1100C9DE7E /* MyContactListener.mm */; };
 /* End PBXBuildFile section */
 
@@ -543,8 +545,6 @@
 		E95495D715F255DE00D1A9EC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E95495D915F255DE00D1A9EC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E95495DA15F255DE00D1A9EC /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		E95495DC15F255DE00D1A9EC /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		E95495DD15F255DE00D1A9EC /* HelloWorldLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HelloWorldLayer.mm; sourceTree = "<group>"; };
 		E95495DF15F255DE00D1A9EC /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		E95495E015F255DE00D1A9EC /* IntroLayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = IntroLayer.mm; sourceTree = "<group>"; };
 		E95495E215F255DE00D1A9EC /* GLES-Render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
@@ -559,7 +559,11 @@
 		E95495F815F2579300D1A9EC /* enemy_1_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1_normal.png; sourceTree = "<group>"; };
 		E95495F915F2579300D1A9EC /* missile_final.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missile_final.png; sourceTree = "<group>"; };
 		E95495FA15F2579300D1A9EC /* plane_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plane_normal.png; sourceTree = "<group>"; };
-		E973F5ED160E23C900B6B991 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E973F5ED160E23C900B6B991 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		E973F5F0160EF16700B6B991 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		E973F5F1160EF16700B6B991 /* GameOverScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameOverScene.mm; sourceTree = "<group>"; };
+		E973F79A160F8E4200B6B991 /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
+		E973F79C160FA3E000B6B991 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		E977E82C15FBBE1100C9DE7E /* MyContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyContactListener.h; sourceTree = "<group>"; };
 		E977E82D15FBBE1100C9DE7E /* MyContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyContactListener.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -587,10 +591,8 @@
 		E95493AD15F255DB00D1A9EC = {
 			isa = PBXGroup;
 			children = (
-				E973F5ED160E23C900B6B991 /* Default-568h@2x.png */,
 				E95493CE15F255DB00D1A9EC /* scrapbook */,
 				E95493BB15F255DB00D1A9EC /* Frameworks */,
-				E954960115F25C0100D1A9EC /* default project files */,
 				E95493B915F255DB00D1A9EC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -622,6 +624,7 @@
 		E95493CE15F255DB00D1A9EC /* scrapbook */ = {
 			isa = PBXGroup;
 			children = (
+				E954960115F25C0100D1A9EC /* Physics */,
 				E977E83015FD17C200C9DE7E /* Debug */,
 				E977E82C15FBBE1100C9DE7E /* MyContactListener.h */,
 				E977E82D15FBBE1100C9DE7E /* MyContactListener.mm */,
@@ -629,6 +632,8 @@
 				E95495F615F2577B00D1A9EC /* MainMenuScene.mm */,
 				E95495F315F2577B00D1A9EC /* GameScene.h */,
 				E95495F415F2577B00D1A9EC /* GameScene.mm */,
+				E973F5F0160EF16700B6B991 /* GameOverScene.h */,
+				E973F5F1160EF16700B6B991 /* GameOverScene.mm */,
 				E95493CF15F255DB00D1A9EC /* Resources */,
 				E95493E915F255DB00D1A9EC /* libs */,
 				E95495D515F255DE00D1A9EC /* Supporting Files */,
@@ -640,6 +645,7 @@
 			isa = PBXGroup;
 			children = (
 				E95495F715F2579300D1A9EC /* sprites */,
+				E973F5ED160E23C900B6B991 /* Default-568h@2x.png */,
 				E95493D015F255DB00D1A9EC /* Default.png */,
 				E95493D215F255DB00D1A9EC /* Default-Landscape~ipad.png */,
 				E95493D415F255DB00D1A9EC /* fps_images.png */,
@@ -1162,6 +1168,8 @@
 		E95495F715F2579300D1A9EC /* sprites */ = {
 			isa = PBXGroup;
 			children = (
+				E973F79C160FA3E000B6B991 /* bg.png */,
+				E973F79A160F8E4200B6B991 /* explosion.png */,
 				E95495F815F2579300D1A9EC /* enemy_1_normal.png */,
 				E95495F915F2579300D1A9EC /* missile_final.png */,
 				E95495FA15F2579300D1A9EC /* plane_normal.png */,
@@ -1169,13 +1177,11 @@
 			path = sprites;
 			sourceTree = "<group>";
 		};
-		E954960115F25C0100D1A9EC /* default project files */ = {
+		E954960115F25C0100D1A9EC /* Physics */ = {
 			isa = PBXGroup;
 			children = (
 				E95495D915F255DE00D1A9EC /* AppDelegate.h */,
 				E95495DA15F255DE00D1A9EC /* AppDelegate.mm */,
-				E95495DC15F255DE00D1A9EC /* HelloWorldLayer.h */,
-				E95495DD15F255DE00D1A9EC /* HelloWorldLayer.mm */,
 				E95495DF15F255DE00D1A9EC /* IntroLayer.h */,
 				E95495E015F255DE00D1A9EC /* IntroLayer.mm */,
 				E95495E215F255DE00D1A9EC /* GLES-Render.h */,
@@ -1183,8 +1189,7 @@
 				E95495E515F255DE00D1A9EC /* PhysicsSprite.h */,
 				E95495E615F255DE00D1A9EC /* PhysicsSprite.mm */,
 			);
-			name = "default project files";
-			path = scrapbook;
+			name = Physics;
 			sourceTree = "<group>";
 		};
 		E977E83015FD17C200C9DE7E /* Debug */ = {
@@ -1262,6 +1267,8 @@
 				E95495FC15F2579300D1A9EC /* missile_final.png in Resources */,
 				E95495FD15F2579300D1A9EC /* plane_normal.png in Resources */,
 				E973F5EE160E23C900B6B991 /* Default-568h@2x.png in Resources */,
+				E973F79B160F8E4200B6B991 /* explosion.png in Resources */,
+				E973F79D160FA3E000B6B991 /* bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1421,11 +1428,11 @@
 				E95495D215F255DE00D1A9EC /* b2Rope.cpp in Sources */,
 				E95495D815F255DE00D1A9EC /* main.m in Sources */,
 				E95495DB15F255DE00D1A9EC /* AppDelegate.mm in Sources */,
-				E95495DE15F255DE00D1A9EC /* HelloWorldLayer.mm in Sources */,
 				E95495E115F255DE00D1A9EC /* IntroLayer.mm in Sources */,
 				E95495E415F255DE00D1A9EC /* GLES-Render.mm in Sources */,
 				E95495E715F255DE00D1A9EC /* PhysicsSprite.mm in Sources */,
 				E977E82E15FBBE1100C9DE7E /* MyContactListener.mm in Sources */,
+				E973F5F2160EF16700B6B991 /* GameOverScene.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
