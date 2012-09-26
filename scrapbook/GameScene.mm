@@ -110,6 +110,11 @@ touchLocation;
         [_bg2.textureAtlas.texture setAntiAliasTexParameters];
         [self addChild:_bg2 z:2];
         
+        //rescale for iPhone 5 resolution:
+        if (_bg1.contentSize.width < winSize.width){
+            _bg1.scale = winSize.width/_bg1.contentSize.width;
+            _bg2.scale = _bg1.scale;
+        }
 
         
         // Game logic
