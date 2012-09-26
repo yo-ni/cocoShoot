@@ -30,6 +30,7 @@
     CGFloat _gameVelocity;
     MyContactListener *_contactListener;
     GLESDebugDraw *_debugDraw;
+    bool _isDebug;
 
 }
 

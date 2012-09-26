@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "scrapbook/GameScene.mm"
-         timestampString = "370281307.482255"
+         timestampString = "370387309.201945"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "276"
-         endingLineNumber = "276"
+         startingLineNumber = "284"
+         endingLineNumber = "284"
          landmarkName = "-setPlayerScale:"
          landmarkType = "5">
       </FileBreakpoint>

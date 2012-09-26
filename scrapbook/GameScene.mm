@@ -34,6 +34,8 @@ touchLocation;
 	if( (self=[super initWithColor:ccc4(255, 255, 255, 255)]) ) {
         CGSize winSize = [CCDirector sharedDirector].winSize;
         
+        //Debug variable
+        _isDebug = YES;
         
         // Create a world
         b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
@@ -115,6 +117,11 @@ touchLocation;
             _bg1.scale = winSize.width/_bg1.contentSize.width;
             _bg2.scale = _bg1.scale;
         }
+        
+        if(_isDebug){
+            _bg2.scale = 1/50;
+            _bg1.scale = _bg2.scale;
+        }
 
         
         // Game logic
@@ -124,14 +131,15 @@ touchLocation;
         [self schedule:@selector(tick:)];
         
         //for debuging
-//        
-//        _debugDraw = new GLESDebugDraw( PTM_RATIO );
-//        _world->SetDebugDraw(_debugDraw);
-//        
-//        uint32 flags = 0;
-//        flags += b2Draw::e_shapeBit;
-//        _debugDraw->SetFlags(flags);
         
+        if(_isDebug){
+            _debugDraw = new GLESDebugDraw( PTM_RATIO );
+            _world->SetDebugDraw(_debugDraw);
+            
+            uint32 flags = 0;
+            flags += b2Draw::e_shapeBit;
+            _debugDraw->SetFlags(flags);
+        }
 	}
 	return self;
 }
@@ -170,7 +178,7 @@ touchLocation;
         [_bg2 setPosition:ccp(_bg1.position.x + winSize.width, _bg2.position.y)];
     }
     
-
+    
     
     //if player is hit
     bool playerHit = NO;
@@ -248,11 +256,11 @@ touchLocation;
                                  [CCDelayTime actionWithDuration:1],
                                  [CCCallFunc actionWithTarget:self selector:@selector(displayGameOver)],
                                  nil]];
-
+                
             }
         }
     }
-
+    
     
     //delete actually all bodies touching the edges
     std::vector<b2Body *>::iterator pos2;
@@ -274,14 +282,7 @@ touchLocation;
 
 - (void)setPlayerScale:(CGFloat)scale{
     _playerSprite.scale = scale;
-    //    b2PolygonShape shape;
-    //    shape.SetAsBox(2, 2);
-    //    b2FixtureDef def;
-    //    def.shape = &shape;
-    //    _playerBody->CreateFixture(&def);
-    //    _playerBody->CreateFixture(&def);
-    //    _playerBody->CreateFixture(&def);
-    //    b2Fixture *list = _playerBody->GetFixtureList();
+
     if(NULL != _playerFixture){
         _playerBody->DestroyFixture(_playerFixture);
     }
@@ -379,7 +380,6 @@ touchLocation;
     b2Body *ennemyBody = _world->CreateBody(&ennemyBodyDef);
     
     b2PolygonShape ennemyShape;
-    //    ennemyShape.SetAsBox(ennemySprite.boundingBox.size.width/PTM_RATIO/2, ennemySprite.boundingBox.size.height/PTM_RATIO/2);
     
     CGFloat shapeRatio = 2*PTM_RATIO/ennemySprite.scale;
     int vertCount = 7;
@@ -415,7 +415,7 @@ touchLocation;
 - (void)displayGameOver {
     GameOverScene *gameOverScene = [GameOverScene node];
     [gameOverScene.layer.label setString:@"You Lose :("];
-    [[CCDirector sharedDirector] replaceScene:gameOverScene];	
+    [[CCDirector sharedDirector] replaceScene:gameOverScene];
 }
 
 
@@ -426,7 +426,7 @@ touchLocation;
     CGPoint location = [touch locationInView:touch.view];
     self.touchLocation = [[CCDirector sharedDirector] convertToGL:location];
     [self bulletToLocation:0.0];
-    [self schedule:@selector(bulletToLocation:) interval:0.2];
+    [self schedule:@selector(bulletToLocation:) interval:0.1];
     
 }
 
@@ -471,16 +471,9 @@ touchLocation;
 //-(void) draw
 //{
 //    ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position | kCCVertexAttribFlag_Color );
-//    
 //	glDisable(GL_TEXTURE_2D);
-//    //	glDisableClientState(GL_COLOR_ARRAY);
-//    //	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//    
 //	_world->DrawDebugData();
-//    
 //	glEnable(GL_TEXTURE_2D);
-//    //	glEnableClientState(GL_COLOR_ARRAY);
-//    //	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 //}
 
 
